@@ -22,8 +22,10 @@ const addTask = (e) => {
   const task = document.createElement("li");
   task.className = "task";
   task.innerHTML =
-    `<div><span></span>
-    <p>${titleTask}</p></div>` + `<img src="/images/icon-cross.svg">`;
+    `<div><div class="box">
+    <input class="checkbox" type="checkbox">
+    <span class="checkmark"></span>
+    </div><p>${titleTask}</p></div>` + `<img src="/images/icon-cross.svg">`;
   toDoList.push(task);
   renderList();
 
