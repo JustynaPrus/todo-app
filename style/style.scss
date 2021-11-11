@@ -112,16 +112,25 @@ ul {
       color: $LightGrayishBlue;
       padding: 0 15px;
     }
-    span::before {
-      display: inline-block;
-      content: "";
-      width: 15px;
-      height: 15px;
-      border-radius: 50%;
-      border: 1px solid $DarkGrayishBlue;
-    }
   }
 }
+
+footer {
+  text-align: center;
+  color: $DarkGrayishBlue;
+  p {
+    padding: 40px 0;
+    font-size: 14px;
+  }
+  .attribution {
+    font-size: 11px;
+  }
+
+  .attribution a {
+    color: hsl(228, 45%, 44%);
+  }
+}
+
 .box {
   display: block;
   position: relative;
@@ -180,20 +189,4 @@ ul {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
-}
-
-footer {
-  text-align: center;
-  color: $DarkGrayishBlue;
-  p {
-    padding: 40px 0;
-    font-size: 14px;
-  }
-  .attribution {
-    font-size: 11px;
-  }
-
-  .attribution a {
-    color: hsl(228, 45%, 44%);
-  }
 }
