@@ -1,61 +1,98 @@
-const button = document.querySelector('.reset');
-const form = document.querySelector('form');
-const buttonArray = [...document.querySelectorAll('.percent')];
+const toDoList = [];
 
-const bill = document.getElementById('bill');
-const numberOfPeople = document.getElementById('numberOfPeople');
-const custom = document.querySelector('.custom');
-const tip = document.getElementById('tip');
-const total = document.getElementById('total');
+const form = document.querySelector("form");
+const ul = document.querySelector("ul");
+const listItems = document.getElementsByClassName("task");
+const input = document.querySelector(".text");
+const checkedList = document.getElementsByClassName("task checked");
+let taskNumber = document.querySelector(".number");
 
-let customValue = custom.value;
-let percent = 0;
+const buttonAll = document.getElementById("all");
+const buttonActive = document.getElementById("active");
+const buttonCompleted = document.getElementById("completed");
+const buttonClear = document.getElementById("clear");
 
-buttonArray.forEach(button => {
-    button.addEventListener('click', event => {
-        if (event.target == buttonArray[0]) {
-            percent = 5;
-        } else if (event.target == buttonArray[1]) {
-            percent = 10;
-        } else if (event.target == buttonArray[2]) {
-            percent = 15;
-        } else if (event.target == buttonArray[3]) {
-            percent = 20;
-        } else if (event.target == buttonArray[4]) {
-            percent = 25;
-        } else {
-            percent = customValue;
-        }
-    })
-})
+const removeTask = (e) => {
+  e.target.parentNode.remove();
+  const index = e.target.parentNode.dataset.key;
+  toDoList.splice(index, 1);
+  taskNumber.textContent = listItems.length - checkedList.length;
+  renderList();
+};
 
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
+const checkTask = (e) => {
+  const a = e.target.parentNode;
+  const b = a.parentNode;
+  const c = b.parentNode;
+  c.classList.toggle("checked");
+  taskNumber.textContent = listItems.length - checkedList.length;
+};
 
-    let billValue = bill.value;
-    let numberOfPeopleValue = numberOfPeople.value;
+const addTask = (e) => {
+  e.preventDefault();
+  const titleTask = input.value;
+  if (titleTask === "") return;
+  const task = document.createElement("li");
+  task.className = "task";
+  task.innerHTML =
+    `<div><div class="box">
+    <input class="checkbox" type="checkbox">
+    <span class="checkmark"></span>
+    </div><p>${titleTask}</p></div>` + `<img src="/images/icon-cross.svg">`;
+  toDoList.push(task);
+  renderList();
 
-    if (numberOfPeopleValue > 0) {
-        let tipAmount = (billValue / 100) * percent;
-        let billTotal = parseFloat(billValue) + parseFloat(tipAmount);
+  ul.appendChild(task);
+  input.value = "";
+  taskNumber.textContent = listItems.length - checkedList.length;
+  task.querySelector("img").addEventListener("click", removeTask);
+  task.querySelector("input").addEventListener("click", checkTask);
+};
 
-        total.textContent = `${(billTotal/numberOfPeopleValue).toFixed(2)}`;
-        tip.textContent = `${(tipAmount/numberOfPeopleValue).toFixed(2)}`;
+const renderList = () => {
+  ul.textContent = "";
+  toDoList.forEach((toDoElement, key) => {
+    toDoElement.dataset.key = key;
+    ul.appendChild(toDoElement);
+  });
+};
 
-        document.querySelector('.alert').style.opacity = "0";
-        numberOfPeople.style.border = "none";
-    } else {
-        document.querySelector('.alert').style.opacity = "100%";
-        numberOfPeople.style.border = "2px solid indianred";
-    }
-});
-
-button.addEventListener('click', resetForm);
-
-function resetForm() {
-    bill.value = "0";
-    numberOfPeople.value = "0";
-    custom.value = "Custom";
-    tip.textContent = "0.00";
-    total.textContent = "0.00"
+function showAll() {
+  [...document.getElementsByClassName("task")].forEach((e) => {
+    e.classList.remove("inactive");
+    e.classList.add("active");
+  });
 }
+
+function showActive() {
+  [...document.getElementsByClassName("task checked")].forEach((e) => {
+    e.classList.remove("active");
+    e.classList.add("inactive");
+  });
+}
+
+function showDone() {
+  [...document.getElementsByClassName("task")].forEach((e) => {
+    e.classList.remove("active");
+    e.classList.remove("inactive");
+    if (e.classList != "task checked") {
+      e.classList.add("inactive");
+    }
+  });
+}
+
+function removeDone() {
+  [...document.getElementsByClassName("task checked")].forEach((e) => {
+    e.remove();
+    const index = e.dataset.key;
+    toDoList.splice(index, 1);
+    renderList();
+  });
+}
+
+form.addEventListener("submit", addTask);
+
+buttonClear.addEventListener("click", removeDone);
+buttonCompleted.addEventListener("click", showDone);
+buttonActive.addEventListener("click", showActive);
+buttonAll.addEventListener("click", showAll);
