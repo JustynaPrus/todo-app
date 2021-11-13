@@ -1,47 +1,61 @@
-const toDoList = [];
+const button = document.querySelector('.reset');
+const form = document.querySelector('form');
+const buttonArray = [...document.querySelectorAll('.percent')];
 
-const form = document.querySelector("form");
-const ul = document.querySelector("ul");
-const listItems = document.getElementsByClassName("task");
-const input = document.querySelector(".text");
-const checkbox = document.querySelector(".checkbox");
-const taskNumber = document.querySelector(".number");
+const bill = document.getElementById('bill');
+const numberOfPeople = document.getElementById('numberOfPeople');
+const custom = document.querySelector('.custom');
+const tip = document.getElementById('tip');
+const total = document.getElementById('total');
 
-const removeTask = (e) => {
-  e.target.parentNode.remove();
-  const index = e.target.parentNode.dataset.key;
-  toDoList.splice(index, 1);
-  taskNumber.textContent = listItems.length;
-  renderList();
-};
+let customValue = custom.value;
+let percent = 0;
 
-const addTask = (e) => {
-  e.preventDefault();
-  const titleTask = input.value;
-  if (titleTask === "") return;
-  const task = document.createElement("li");
-  task.className = "task";
-  task.innerHTML =
-    `<div><div class="box">
-    <input class="checkbox" type="checkbox">
-    <span class="checkmark"></span>
-    </div><p>${titleTask}</p></div>` + `<img src="/images/icon-cross.svg">`;
-  toDoList.push(task);
-  renderList();
+buttonArray.forEach(button => {
+    button.addEventListener('click', event => {
+        if (event.target == buttonArray[0]) {
+            percent = 5;
+        } else if (event.target == buttonArray[1]) {
+            percent = 10;
+        } else if (event.target == buttonArray[2]) {
+            percent = 15;
+        } else if (event.target == buttonArray[3]) {
+            percent = 20;
+        } else if (event.target == buttonArray[4]) {
+            percent = 25;
+        } else {
+            percent = customValue;
+        }
+    })
+})
 
-  ul.appendChild(task);
-  input.value = "";
-  liItems = document.querySelectorAll("li.task").length;
-  taskNumber.textContent = listItems.length;
-  task.querySelector("img").addEventListener("click", removeTask);
-};
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-const renderList = () => {
-  ul.textContent = "";
-  toDoList.forEach((toDoElement, key) => {
-    toDoElement.dataset.key = key;
-    ul.appendChild(toDoElement);
-  });
-};
+    let billValue = bill.value;
+    let numberOfPeopleValue = numberOfPeople.value;
 
-form.addEventListener("submit", addTask);
+    if (numberOfPeopleValue > 0) {
+        let tipAmount = (billValue / 100) * percent;
+        let billTotal = parseFloat(billValue) + parseFloat(tipAmount);
+
+        total.textContent = `${(billTotal/numberOfPeopleValue).toFixed(2)}`;
+        tip.textContent = `${(tipAmount/numberOfPeopleValue).toFixed(2)}`;
+
+        document.querySelector('.alert').style.opacity = "0";
+        numberOfPeople.style.border = "none";
+    } else {
+        document.querySelector('.alert').style.opacity = "100%";
+        numberOfPeople.style.border = "2px solid indianred";
+    }
+});
+
+button.addEventListener('click', resetForm);
+
+function resetForm() {
+    bill.value = "0";
+    numberOfPeople.value = "0";
+    custom.value = "Custom";
+    tip.textContent = "0.00";
+    total.textContent = "0.00"
+}
