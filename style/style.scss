@@ -1,3 +1,6 @@
+@import "light_theme";
+@import "media";
+
 * {
   margin: 0;
   padding: 0;
@@ -65,6 +68,7 @@ body {
   main {
     border-radius: 5px;
     overflow: hidden;
+    box-shadow: 0 5px 15px 8px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -106,6 +110,12 @@ ul {
     border-bottom: 1px solid $DarkGrayishBlue;
     color: $LightGrayishBlue;
     text-decoration: none;
+    img {
+      opacity: 0;
+    }
+    &:hover img {
+      opacity: 100%;
+    }
     div {
       display: flex;
       align-items: center;
@@ -121,14 +131,16 @@ ul {
       .box input:checked ~ .checkmark:after {
         display: block;
       }
-
+      .box:hover {
+        background: $linear-gradient;
+      }
       /* Style the checkmark/indicator */
       .box .checkmark:after {
         content: "";
         position: absolute;
         display: none;
-        left: 8px;
-        top: 5px;
+        left: 7px;
+        top: 4px;
         width: 3px;
         height: 6px;
         border: solid white;
@@ -165,6 +177,8 @@ footer {
   height: 20px;
   border-radius: 50%;
   overflow: hidden;
+  background-color: $DarkGrayishBlue;
+  padding: 1px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -173,26 +187,31 @@ footer {
   input {
     position: absolute;
     opacity: 0;
-    top: 0;
-    left: 0;
-    height: 20px;
-    width: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 18px;
+    width: 18px;
     z-index: 1;
   }
   /* Create a custom checkbox */
   .checkmark {
     position: absolute;
-    top: 0;
-    left: 0;
-    height: 20px;
-    width: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 18px;
+    width: 18px;
     border-radius: 50%;
-    border: 1px solid $DarkGrayishBlue;
+    background-color: $veryDarkGrayishBlue;
   }
 }
 .checked {
   color: $DarkGrayishBlue;
   text-decoration: line-through;
+  .box {
+    background: $linear-gradient;
+  }
 }
 .inactive {
   display: none;

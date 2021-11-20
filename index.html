@@ -13,11 +13,14 @@
 </head>
 
 <body>
-  <img class="background" src="images/bg-desktop-dark.jpg" alt="background image">
+  <picture>
+    <source media="(max-width:500px)" srcset="images/bg-mobile-dark.jpg">
+    <img class="background" src="images/bg-desktop-dark.jpg" alt="background image">
+  </picture>
   <div class="container">
     <header>
       <h1>Todo</h1>
-      <img src="images/icon-sun.svg" alt="icon sun">
+      <img class="switch" src="images/icon-sun.svg" alt="icon sun">
     </header>
 
     <form action="">

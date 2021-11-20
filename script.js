@@ -57,6 +57,10 @@ const renderList = () => {
   });
 };
 
+form.addEventListener("submit", addTask);
+
+/*buttons events*/
+
 function showAll() {
   [...document.getElementsByClassName("task")].forEach((e) => {
     e.classList.remove("inactive");
@@ -90,9 +94,55 @@ function removeDone() {
   });
 }
 
-form.addEventListener("submit", addTask);
-
 buttonClear.addEventListener("click", removeDone);
 buttonCompleted.addEventListener("click", showDone);
 buttonActive.addEventListener("click", showActive);
 buttonAll.addEventListener("click", showAll);
+
+/*lightmode*/
+
+const switchButton = document.querySelector(".switch");
+const background = document.querySelector(".background");
+const body = document.querySelector("body");
+const label = document.querySelector("label");
+const inputText = document.querySelector(".text");
+const section = document.querySelector("section");
+const button = [...document.querySelectorAll("button")];
+const source = document.querySelector("source");
+
+let isLight = false;
+
+const changeTheme = () => {
+  const li = [...document.querySelectorAll("li")];
+  const checkmark = [...document.querySelectorAll(".checkmark")];
+
+  body.classList.toggle("change");
+  label.classList.toggle("change");
+  inputText.classList.toggle("change");
+  section.classList.toggle("change");
+  button.forEach((btn) => btn.classList.toggle("change"));
+  li.forEach((item) => item.classList.toggle("change"));
+  checkmark.forEach((item) => item.classList.toggle("change"));
+};
+
+switchButton.addEventListener("click", function () {
+  if (!isLight) {
+    switchButton.src = "images/icon-moon.svg";
+    background.src = "images/bg-desktop-light.jpg";
+
+    if (source.srcset === "images/bg-mobile-dark.jpg") {
+      source.srcset = "images/bg-mobile-light.jpg";
+    }
+    changeTheme();
+    isLight = true;
+  } else if (isLight) {
+    switchButton.src = "images/icon-sun.svg";
+    background.src = "images/bg-desktop-dark.jpg";
+
+    if (source.srcset === "images/bg-mobile-light.jpg") {
+      source.srcset = "images/bg-mobile-dark.jpg";
+    }
+    isLight = false;
+    changeTheme();
+  }
+});

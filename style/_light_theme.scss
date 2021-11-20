@@ -1,0 +1,40 @@
+$VeryLightGray: hsl(0, 0%, 98%);
+$VeryLightGrayishBlue: hsl(236, 33%, 92%);
+$LightGrayishBlue: hsl(233, 11%, 84%);
+$DarkGrayishBlue: hsl(236, 9%, 61%);
+$VeryDarkGrayishBlue: hsl(235, 19%, 35%);
+
+.switch {
+  cursor: pointer;
+}
+
+/*Light theme code:*/
+body.change {
+  background-color: $VeryLightGrayishBlue;
+}
+
+.container {
+  label.change {
+    background-color: $VeryLightGray;
+    input.text.change {
+      background-color: $VeryLightGray;
+    }
+  }
+}
+
+section.change {
+  background-color: $VeryLightGray;
+  button.change {
+    background-color: $VeryLightGray;
+  }
+}
+
+li.change {
+  background-color: $VeryLightGray;
+  border-bottom: 1px solid $LightGrayishBlue;
+}
+.box {
+  .checkmark.change {
+    background-color: $VeryLightGray;
+  }
+}
