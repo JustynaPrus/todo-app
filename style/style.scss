@@ -1,5 +1,4 @@
 @import "light_theme";
-@import "media";
 
 * {
   margin: 0;
@@ -220,3 +219,5 @@ footer {
 .active {
   display: flex;
 }
+
+@import "media";

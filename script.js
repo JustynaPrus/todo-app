@@ -39,6 +39,14 @@ const addTask = (e) => {
     <input class="checkbox" type="checkbox">
     <span class="checkmark"></span>
     </div><p>${titleTask}</p></div>` + `<img src="/images/icon-cross.svg">`;
+  if (isLight) {
+    task.className = "task change";
+    task.innerHTML =
+      `<div><div class="box">
+    <input class="checkbox" type="checkbox">
+    <span class="checkmark change"></span>
+    </div><p>${titleTask}</p></div>` + `<img src="/images/icon-cross.svg">`;
+  }
   toDoList.push(task);
   renderList();
 
